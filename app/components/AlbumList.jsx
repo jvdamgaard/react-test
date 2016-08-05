@@ -1,19 +1,19 @@
 import React from 'react';
 import Album from './Album';
 
-function AlbumList(props) {
-  const albums = props.albums.map((album) => (
+export default function AlbumList({ albums, getTracks }) {
+  const albumsList = albums.map((album) => (
     <Album
       key={album.id}
       album={album}
-      getTracks={props.getTracks}
+      getTracks={getTracks}
     />
   ));
 
   return (
     <div className="col-md-4" style={AlbumList.styles.div}>
       <ul style={AlbumList.styles.ul}>
-        {albums}
+        {albumsList}
       </ul>
     </div>
   );
@@ -36,5 +36,3 @@ AlbumList.styles = {
     listStyle: 'none',
   },
 };
-
-export default AlbumList;

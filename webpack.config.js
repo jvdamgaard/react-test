@@ -2,8 +2,8 @@
 const path = require('path');
 
 const PATHS = {
-  app: './src/index.js',
-  html: './src/index.html',
+  app: './app/index.jsx',
+  html: './app/index.html',
   dist: path.join(__dirname, 'dist'),
 };
 

@@ -1,23 +1,23 @@
 import React from 'react';
 import Track from './Track';
 
-const TrackList = (props) => {
-  const tracks = props.tracks.map((track) => (
+export default function TrackList({ tracks, playPreview }) {
+  const tracksList = tracks.map((track) => (
     <Track
       key={track.id}
       track={track}
-      playPreview={props.playPreview}
+      playPreview={playPreview}
     />
   ));
 
   return (
     <div className="col-md-3">
       <ul style={TrackList.styles.ul}>
-        {tracks}
+        {tracksList}
       </ul>
     </div>
   );
-};
+}
 
 TrackList.propTypes = {
   tracks: React.PropTypes.array.isRequired,
@@ -29,5 +29,3 @@ TrackList.styles = {
     listStyle: 'none',
   },
 };
-
-export default TrackList;
