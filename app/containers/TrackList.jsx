@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
-import { setCurrentTrack } from '../actions/tracks';
+import { playPreview } from '../actions/tracks';
 import TrackList from '../components/TrackList';
-
-let curAudioObject;
 
 function mapStateToProps(state/* , ownProps */) {
   return {
@@ -13,13 +11,7 @@ function mapStateToProps(state/* , ownProps */) {
 function mapDispatchToProps(dispatch/* , ownProps */) {
   return {
     playPreview: (url) => {
-      if (curAudioObject) {
-        curAudioObject.pause();
-      }
-
-      curAudioObject = new Audio(url);
-      curAudioObject.play();
-      dispatch(setCurrentTrack(url));
+      dispatch(playPreview(url));
     },
   };
 }

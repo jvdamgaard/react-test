@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import { setTracks } from '../actions/tracks';
-import * as musicApi from '../api/musicApi';
+import { getTracks } from '../actions/tracks';
 import AlbumList from '../components/AlbumList';
 
 function mapStateToProps(state/* , ownProps */) {
@@ -11,13 +10,7 @@ function mapStateToProps(state/* , ownProps */) {
 
 function mapDispatchToProps(dispatch/* , ownProps */) {
   return {
-    getTracks: (albumId) => {
-      musicApi
-        .getTracks(albumId)
-        .then(payload => {
-          dispatch(setTracks(payload.tracks.items));
-        });
-    },
+    getTracks: (albumId) => dispatch(getTracks(albumId)),
   };
 }
 

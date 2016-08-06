@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { setSearch } from '../actions/search';
-import { setAlbums } from '../actions/albums';
-import * as musicApi from '../api/musicApi';
+import { getAlbums } from '../actions/albums';
 import SearchBar from '../components/SearchBar';
 
 function mapStateToProps(state/* , ownProps */) {
@@ -18,9 +17,7 @@ function mapDispatchToProps(dispatch/* , ownProps */) {
 
     onKeyPress: (event) => {
       if (event.key === 'Enter') {
-        musicApi
-          .getAlbums(event.target.value)
-          .then(payload => dispatch(setAlbums(payload.albums.items)));
+        getAlbums(event.target.value);
       }
     },
   };

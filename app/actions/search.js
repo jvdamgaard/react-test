@@ -1,6 +1,4 @@
-import {
-  SET_SEARCH,
-} from './types';
+import { SET_SEARCH } from './types';
 
 export function setSearch(term) {
   return {
