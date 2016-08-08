@@ -17,7 +17,7 @@ function mapDispatchToProps(dispatch/* , ownProps */) {
 
     onKeyPress: (event) => {
       if (event.key === 'Enter') {
-        getAlbums(event.target.value);
+        dispatch(getAlbums(event.target.value));
       }
     },
   };

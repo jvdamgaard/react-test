@@ -1,24 +1,25 @@
-// const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
+
+const hotMiddlewareScript = 'webpack-hot-middleware/client' +
+  '?path=/__webpack_hmr' +
+  '&timeout=20000' +
+  '&reload=true';
 
 const PATHS = {
   app: './app/index.jsx',
-  html: './app/index.html',
   dist: path.join(__dirname, 'dist'),
 };
 
 module.exports = {
+  devtool: 'eval',
   entry: {
-    javascript: PATHS.app,
-    html: PATHS.html,
+    app: [PATHS.app, hotMiddlewareScript],
   },
   output: {
     path: PATHS.dist,
     publicPath: '/',
     filename: 'bundle.js',
-  },
-  devServer: {
-    contentBase: PATHS.dist,
   },
   module: {
     preLoaders: [{
@@ -27,9 +28,6 @@ module.exports = {
       exclude: /node_modules/,
     }],
     loaders: [{
-      test: /\.html$/,
-      loader: 'file?name=[name].[ext]',
-    }, {
       test: /\.(js|jsx)/,
       exclude: /node_modules/,
       loaders: ['react-hot', 'babel-loader'],
@@ -38,4 +36,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 };
