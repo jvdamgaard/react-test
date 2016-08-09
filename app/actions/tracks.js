@@ -1,4 +1,4 @@
-import * as musicApi from '../api/musicApi';
+import * as musicApi from '../../api/musicApi';
 import { SET_TRACKS, EMPTY_TRACKS, SET_CURRENT_TRACK } from './types';
 
 export function setTracks(tracks) {

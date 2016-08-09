@@ -4,10 +4,12 @@ import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import fetcher from '../lib/api-fetcher';
+import * as musicApi from '../../api/musicApi';
 import counterApp from '../../app/reducers';
 import App from '../../app/components/App';
 import { setSearch } from '../../app/actions/search';
-import { getAlbums } from '../../app/actions/albums';
+import { setAlbums } from '../../app/actions/albums';
 
 function renderHtml(html, preloadedState) {
   return `<!doctype html>
@@ -48,7 +50,13 @@ export default function handleRender(req, res) {
     return sendResponse(res, store);
   }
   store.dispatch(setSearch(query));
-  return store.dispatch(getAlbums(query)).then(() => {
-    sendResponse(res, store);
-  });
+  return musicApi
+    .getAlbums(query, fetcher)
+    .then((data) => {
+      store.dispatch(setAlbums(data.albums.items));
+      sendResponse(res, store);
+    })
+    .catch(() => {
+      sendResponse(res, store);
+    });
 }

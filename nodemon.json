@@ -2,6 +2,7 @@
   "verbose": false,
   "watch": [
     "server",
+    "api",
     "webpack.config.js"
   ],
   "exec": "babel-node server"

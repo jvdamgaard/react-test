@@ -1,4 +1,4 @@
-import * as musicApi from '../api/musicApi';
+import * as musicApi from '../../api/musicApi';
 import { SET_ALBUMS } from './types';
 
 export function setAlbums(albums) {

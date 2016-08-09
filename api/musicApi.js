@@ -1,17 +1,19 @@
 import axios from 'axios';
 
-function fetch(request) {
-  return axios
-    .get(request)
-    .then(response => response.data);
-}
+const fetcher = axios.create();
 
-export function getAlbums(artist) {
+const defaultFetcher = (request) => (
+  fetcher
+    .get(request)
+    .then(response => response.data)
+);
+
+export function getAlbums(artist, fetch = defaultFetcher) {
   const request = `https://api.spotify.com/v1/search?q=${artist}&type=album`;
   return fetch(request);
 }
 
-export function getTracks(albumId) {
+export function getTracks(albumId, fetch = defaultFetcher) {
   const request = `https://api.spotify.com/v1/albums/${albumId}`;
   return fetch(request);
 }
