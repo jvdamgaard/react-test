@@ -1,14 +1,14 @@
-import qs from 'qs';
 import { renderToString } from 'react-dom/server';
+import { Router, Route, createMemoryHistory } from 'react-router';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import fetcher from '../lib/api-fetcher';
 import * as musicApi from '../../api/musicApi';
-import counterApp from '../../app/reducers';
+import reducers from '../../app/reducers';
 import App from '../../app/components/App';
-import { setSearch } from '../../app/actions/search';
 import { setAlbums } from '../../app/actions/albums';
 
 function renderHtml(html, preloadedState) {
@@ -29,11 +29,18 @@ function renderHtml(html, preloadedState) {
   `;
 }
 
-function sendResponse(res, store) {
+function sendResponse(req, res, store) {
+  const memoryHistory = createMemoryHistory(req.url);
+  const history = syncHistoryWithStore(memoryHistory, store);
+
   // Render the component to a string
   const html = renderToString(
     <Provider store={store}>
-      <App />
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <Route path="/:query" component={App} />
+        </Route>
+      </Router>
     </Provider>
   );
 
@@ -44,19 +51,22 @@ function sendResponse(res, store) {
 
 export default function handleRender(req, res) {
   // Create a new Redux store instance
-  const store = createStore(counterApp, applyMiddleware(thunk));
-  const { query } = qs.parse(req.query);
+  const store = createStore(
+    combineReducers({ ...reducers, routing: routerReducer }),
+    applyMiddleware(thunk)
+  );
+
+  const { query } = req.params;
   if (!query) {
-    return sendResponse(res, store);
+    return sendResponse(req, res, store);
   }
-  store.dispatch(setSearch(query));
   return musicApi
     .getAlbums(query, fetcher)
     .then((data) => {
       store.dispatch(setAlbums(data.albums.items));
-      sendResponse(res, store);
+      sendResponse(req, res, store);
     })
     .catch(() => {
-      sendResponse(res, store);
+      sendResponse(req, res, store);
     });
 }

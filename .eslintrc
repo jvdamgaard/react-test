@@ -5,5 +5,10 @@
   },
   "env": {
     "node": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+        "experimentalObjectRestSpread": true
+    }
   }
 }

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon",
+    "dev": "npm run build && cross-env NODE_ENV=development nodemon",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -40,6 +40,8 @@
     "react": "15.3.0",
     "react-dom": "15.3.0",
     "react-redux": "4.4.5",
+    "react-router": "2.6.1",
+    "react-router-redux": "4.0.5",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0"
   },

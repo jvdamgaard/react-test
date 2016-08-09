@@ -1,13 +1,12 @@
 import React from 'react';
 
-export default function SearchBar({ searchTerm, onChange, onKeyPress }) {
+export default function SearchBar({ query, onChange }) {
   return (
     <div style={SearchBar.styles.div}>
       <h3>Search for an Artist</h3>
       <input
         onChange={onChange}
-        onKeyPress={onKeyPress}
-        value={searchTerm}
+        value={query}
         style={SearchBar.styles.input}
       />
     </div>
@@ -15,9 +14,8 @@ export default function SearchBar({ searchTerm, onChange, onKeyPress }) {
 }
 
 SearchBar.propTypes = {
-  searchTerm: React.PropTypes.string.isRequired,
+  query: React.PropTypes.string.isRequired,
   onChange: React.PropTypes.func.isRequired,
-  onKeyPress: React.PropTypes.func.isRequired,
 };
 
 SearchBar.styles = {

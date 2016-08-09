@@ -3,10 +3,10 @@ import SearchBar from '../containers/SearchBar';
 import AlbumList from '../containers/AlbumList';
 import TrackList from '../containers/TrackList';
 
-export default function App() {
+export default function App(ownProps) {
   return (
     <div>
-      <SearchBar />
+      <SearchBar query={ownProps.params.query || ''} />
       <AlbumList />
       <TrackList />
     </div>

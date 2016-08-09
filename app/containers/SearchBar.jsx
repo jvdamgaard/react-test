@@ -1,24 +1,19 @@
 import { connect } from 'react-redux';
-import { setSearch } from '../actions/search';
+import { browserHistory } from 'react-router';
 import { getAlbums } from '../actions/albums';
 import SearchBar from '../components/SearchBar';
 
-function mapStateToProps(state/* , ownProps */) {
+function mapStateToProps(state, ownProps) {
   return {
-    searchTerm: state.search,
+    searchTerm: ownProps.search,
   };
 }
 
 function mapDispatchToProps(dispatch/* , ownProps */) {
   return {
     onChange: (event) => {
-      dispatch(setSearch(event.target.value));
-    },
-
-    onKeyPress: (event) => {
-      if (event.key === 'Enter') {
-        dispatch(getAlbums(event.target.value));
-      }
+      browserHistory.push(`/${event.target.value}`);
+      dispatch(getAlbums(event.target.value));
     },
   };
 }
