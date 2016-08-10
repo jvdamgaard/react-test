@@ -1,22 +1,23 @@
 import { renderToString } from 'react-dom/server';
-import { Router, Route, createMemoryHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { createMemoryHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 import React from 'react';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import fetcher from '../lib/api-fetcher';
 import * as musicApi from '../../api/musicApi';
-import reducers from '../../app/reducers';
-import App from '../../app/components/App';
+import createStore from '../../app/store';
 import { setAlbums } from '../../app/actions/albums';
+import Router from '../../app/components/Router';
 
 function renderHtml(html, preloadedState) {
   return `<!doctype html>
 <html>
   <head>
     <title>Respotify</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    >
   </head>
   <body>
     <div id="app">${html}</div>
@@ -25,8 +26,7 @@ function renderHtml(html, preloadedState) {
     </script>
     <script src="/bundle.js"></script>
   </body>
-</html>
-  `;
+</html>`;
 }
 
 function sendResponse(req, res, store) {
@@ -36,11 +36,7 @@ function sendResponse(req, res, store) {
   // Render the component to a string
   const html = renderToString(
     <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={App}>
-          <Route path="/:query" component={App} />
-        </Route>
-      </Router>
+      <Router history={history} />
     </Provider>
   );
 
@@ -51,10 +47,7 @@ function sendResponse(req, res, store) {
 
 export default function handleRender(req, res) {
   // Create a new Redux store instance
-  const store = createStore(
-    combineReducers({ ...reducers, routing: routerReducer }),
-    applyMiddleware(thunk)
-  );
+  const store = createStore();
 
   const { query } = req.params;
   if (!query) {
