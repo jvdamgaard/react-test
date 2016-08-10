@@ -11,10 +11,16 @@ export function setAlbums(albums) {
 export function getAlbums(query) {
   return (dispatch) => {
     if (!query) {
-      return Promise.resolve(dispatch(setAlbums([])));
+      return Promise.resolve(
+        dispatch(
+          setAlbums([])
+        )
+      );
     }
     return musicApi
       .getAlbums(query)
-      .then(payload => dispatch(setAlbums(payload.albums.items)));
+      .then(payload => dispatch(
+        setAlbums(payload.albums.items))
+      );
   };
 }
