@@ -59,7 +59,7 @@ export default function handleRender(req, res) {
       store.dispatch(setAlbums(data.albums.items));
       sendResponse(req, res, store);
     })
-    .catch(() => {
-      sendResponse(req, res, store);
+    .catch((error) => {
+      res.status(500).send(error.message);
     });
 }
