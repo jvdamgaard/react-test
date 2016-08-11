@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import debounce from 'lodash/debounce';
 import { getAlbums } from '../actions/albums';
 import SearchBar from '../components/SearchBar';
 
@@ -10,10 +11,14 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch/* , ownProps */) {
+  const debouncedGetAlbums = debounce((query) => {
+    dispatch(getAlbums(query));
+  }, 250);
+
   return {
     onChange: (event) => {
       browserHistory.push(`/${event.target.value}`);
-      dispatch(getAlbums(event.target.value));
+      debouncedGetAlbums(event.target.value);
     },
   };
 }
