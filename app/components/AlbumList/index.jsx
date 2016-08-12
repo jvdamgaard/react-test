@@ -1,5 +1,6 @@
 import React from 'react';
-import Album from './Album';
+import Album from '../Album';
+import style from './style.css';
 
 export default function AlbumList({ albums, getTracks }) {
   const albumsList = albums.map((album) => (
@@ -11,8 +12,8 @@ export default function AlbumList({ albums, getTracks }) {
   ));
 
   return (
-    <div className="col-md-4" style={AlbumList.styles.div}>
-      <ul style={AlbumList.styles.ul}>
+    <div className={`col-md-4 ${style.container}`}>
+      <ul className={style.list}>
         {albumsList}
       </ul>
     </div>
@@ -22,17 +23,4 @@ export default function AlbumList({ albums, getTracks }) {
 AlbumList.propTypes = {
   albums: React.PropTypes.array.isRequired,
   getTracks: React.PropTypes.func.isRequired,
-};
-
-AlbumList.styles = {
-  div: {
-    width: 370,
-    marginLeft: 30,
-    textAlign: 'right',
-    maxHeight: '85vh',
-    overflowY: 'auto',
-  },
-  ul: {
-    listStyle: 'none',
-  },
 };

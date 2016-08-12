@@ -1,0 +1,10 @@
+.listItem {
+  font-size: 1.5em;
+  padding: 0.2em;
+  list-style-type: none;
+  background-color: white;
+}
+
+.listItem:hover {
+  background-color: #ADD8E6;
+}

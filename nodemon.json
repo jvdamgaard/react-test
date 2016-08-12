@@ -3,7 +3,7 @@
   "watch": [
     "server",
     "api",
-    "webpack.config.js"
+    "build-configs"
   ],
   "exec": "babel-node server"
 }

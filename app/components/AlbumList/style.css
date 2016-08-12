@@ -1,0 +1,12 @@
+.container {
+  width: 370px;
+  margin-left: 30px;
+  text-align: right;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.list {
+  list-style: none;
+}
+

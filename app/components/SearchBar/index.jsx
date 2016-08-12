@@ -1,13 +1,14 @@
 import React from 'react';
+import style from './style.css';
 
 export default function SearchBar({ query, onChange }) {
   return (
-    <div style={SearchBar.styles.div}>
+    <div className={style.container}>
       <h3>Search for an Artist</h3>
       <input
         onChange={onChange}
         value={query}
-        style={SearchBar.styles.input}
+        className={style.input}
       />
     </div>
   );
@@ -16,14 +17,4 @@ export default function SearchBar({ query, onChange }) {
 SearchBar.propTypes = {
   query: React.PropTypes.string.isRequired,
   onChange: React.PropTypes.func.isRequired,
-};
-
-SearchBar.styles = {
-  div: {
-    margin: 30,
-    textAlign: 'center',
-  },
-  input: {
-    width: '60%',
-  },
 };

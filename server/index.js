@@ -4,8 +4,8 @@ import compression from 'compression';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from '../webpack.config';
-import serveHtml from './middleware/serve-html';
+import config from '../build-configs/client';
+import serveHtml from '../dist/serve-html';
 
 const PUBLIC_PATH = path.resolve(__dirname, '../dist');
 
@@ -22,6 +22,7 @@ app.use(webpackHotMiddleware(compiler));
 
 app.use(compression());
 app.use(express.static(PUBLIC_PATH, { maxAge: 24 * 60 * 60 * 1000 }));
+
 app.get('/', serveHtml);
 app.get('/:query', serveHtml);
 
@@ -32,4 +33,5 @@ console.log(`
  Listening on port: ${app.get('port')}
 ---------------------------------
 `);
+
 app.listen(app.get('port'));

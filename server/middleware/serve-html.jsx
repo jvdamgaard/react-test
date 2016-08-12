@@ -18,6 +18,7 @@ function renderHtml(html, preloadedState) {
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
     >
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <div id="app">${html}</div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import style from './style.css';
 
 export default function Album({ album, getTracks }) {
   return (
@@ -6,7 +7,7 @@ export default function Album({ album, getTracks }) {
       <img
         src={album.images[1].url}
         alt={album.name}
-        style={Album.styles.img}
+        className={style.img}
         onClick={() => getTracks(album.id)}
       />
     </li>
@@ -16,10 +17,4 @@ export default function Album({ album, getTracks }) {
 Album.propTypes = {
   album: React.PropTypes.object.isRequired,
   getTracks: React.PropTypes.func.isRequired,
-};
-
-Album.styles = {
-  img: {
-    marginBottom: '1em',
-  },
 };

@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const hotMiddlewareScript = 'webpack-hot-middleware/client' +
   '?path=/__webpack_hmr' +
@@ -7,8 +8,8 @@ const hotMiddlewareScript = 'webpack-hot-middleware/client' +
   '&reload=true';
 
 const PATHS = {
-  app: './app/index.jsx',
-  dist: path.join(__dirname, 'dist'),
+  app: path.resolve(__dirname, '../app/index.jsx'),
+  dist: path.resolve(__dirname, '../dist'),
 };
 
 module.exports = {
@@ -31,12 +32,19 @@ module.exports = {
       test: /\.(js|jsx)/,
       exclude: /node_modules/,
       loaders: ['react-hot', 'babel-loader'],
+    }, {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract(
+        'isomorphic-style-loader',
+        'css-loader?modules&localIdentName=[name]_[local]_[hash:base64:3]'
+      ),
     }],
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.css'],
   },
   plugins: [
+    new ExtractTextPlugin('styles.css'),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };

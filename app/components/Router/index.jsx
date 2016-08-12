@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route } from 'react-router';
-import App from '../components/App';
+import App from '../../components/App';
 
 export default function AppContainer({ history }) {
   return (
