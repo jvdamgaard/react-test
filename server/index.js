@@ -24,7 +24,7 @@ app.use(compression());
 app.use(express.static(PUBLIC_PATH, { maxAge: 24 * 60 * 60 * 1000 }));
 
 app.get('/', serveHtml);
-app.get('/:query', serveHtml);
+app.get('/search/:query', serveHtml);
 
 console.log(`
 ---------------------------------

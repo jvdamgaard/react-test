@@ -17,7 +17,7 @@ function mapDispatchToProps(dispatch/* , ownProps */) {
 
   return {
     onChange: (event) => {
-      browserHistory.push(`/${event.target.value}`);
+      browserHistory.push(`/search/${event.target.value}`);
       debouncedGetAlbums(event.target.value);
     },
   };
