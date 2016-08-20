@@ -2,7 +2,6 @@
   "verbose": false,
   "watch": [
     "server",
-    "api",
     "build-configs"
   ],
   "exec": "babel-node server"

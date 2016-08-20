@@ -1,27 +1,31 @@
 const path = require('path');
 
 const PATHS = {
-  app: './server/middleware/serve-html.jsx',
-  dist: path.join(__dirname, '../dist'),
+  app: './app/server.jsx',
+  dist: path.join(__dirname, '../compiled'),
 };
 
 module.exports = {
   name: 'server-side rendering',
   entry: {
-    server: [PATHS.app],
+    'render-react': PATHS.app,
   },
   target: 'node',
   output: {
     path: PATHS.dist,
     publicPath: '/',
-    filename: 'serve-html.js',
+    filename: '[name].js',
     libraryTarget: 'commonjs2',
   },
   module: {
     loaders: [{
       test: /\.(js|jsx)/,
+      loader: 'babel-loader',
+      query: {
+        presets: ['es2015', 'react', 'stage-0'],
+        plugins: ['transform-object-rest-spread'],
+      },
       exclude: /node_modules/,
-      loaders: ['babel-loader'],
     }, {
       test: /\.json$/,
       loader: 'json-loader',

@@ -5,22 +5,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const hotMiddlewareScript = 'webpack-hot-middleware/client' +
   '?path=/__webpack_hmr' +
   '&timeout=20000' +
-  '&reload=true';
-
-const PATHS = {
-  app: path.resolve(__dirname, '../app/index.jsx'),
-  dist: path.resolve(__dirname, '../dist'),
-};
+  '&reload=false';
 
 module.exports = {
   devtool: 'eval',
+  name: 'browser',
   entry: {
-    app: [PATHS.app, hotMiddlewareScript],
+    app: [path.resolve(__dirname, '../app/client.jsx'), hotMiddlewareScript],
   },
   output: {
-    path: PATHS.dist,
+    path: path.resolve(__dirname, '../public'),
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: '[name].js',
   },
   module: {
     preLoaders: [{
@@ -31,7 +27,20 @@ module.exports = {
     loaders: [{
       test: /\.(js|jsx)/,
       exclude: /node_modules/,
-      loaders: ['react-hot', 'babel-loader'],
+      loader: 'babel-loader',
+      query: {
+        presets: ['es2015', 'react', 'stage-0'],
+        plugins: [
+          'transform-object-rest-spread',
+          ['react-transform', {
+            transforms: [{
+              transform: 'react-transform-hmr',
+              imports: ['react'],
+              locals: ['module'],
+            }],
+          }],
+        ],
+      },
     }, {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract(
@@ -44,7 +53,8 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.css'],
   },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
     new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('styles.css'),
+    new webpack.NoErrorsPlugin(),
   ],
 };

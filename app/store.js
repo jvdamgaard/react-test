@@ -4,9 +4,9 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 
 export default function store(initialState, reduxDevTools) {
-  const enhancer = (reduxDevTools)
-    ? compose(applyMiddleware(thunk), reduxDevTools)
-    : applyMiddleware(thunk);
+  const enhancer = (reduxDevTools) ?
+    compose(applyMiddleware(thunk), reduxDevTools) :
+    applyMiddleware(thunk);
 
   return createStore(
     combineReducers({ ...reducers, routing: routerReducer }),

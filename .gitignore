@@ -1,2 +1,8 @@
 node_modules/
 dist/
+
+compiled/render-react.js
+
+public/app.js
+
+public/styles.css
