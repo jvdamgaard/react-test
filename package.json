@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run build:dev && nodemon",
-    "build:dev": "npm run build:dev:client && npm run build:dev:server",
-    "build:dev:client": "cross-env NODE_ENV=development webpack --colors --config ./build-configs/client.js",
-    "build:dev:server": "cross-env NODE_ENV=development webpack --colors --config ./build-configs/server.js",
+    "build:dev": "npm run build:dev:client & npm run build:dev:server",
+    "build:dev:client": "webpack --colors --config ./build/dev.client.js",
+    "build:dev:server": "webpack --colors --config ./build/dev.server.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [],
@@ -20,6 +20,7 @@
     "babel-plugin-transform-object-rest-spread": "6.8.0",
     "babel-preset-es2015": "6.13.2",
     "babel-preset-react": "6.11.1",
+    "babel-preset-react-hmre": "1.1.1",
     "babel-preset-stage-0": "6.5.0",
     "eslint": "3.3.1",
     "eslint-config-airbnb": "10.0.1",
@@ -39,6 +40,7 @@
   },
   "dependencies": {
     "axios": "0.13.1",
+    "body-parser": "1.15.2",
     "compression": "1.6.2",
     "cross-env": "2.0.0",
     "css-loader": "0.23.1",

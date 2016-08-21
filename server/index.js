@@ -1,27 +1,28 @@
 import path from 'path';
 import express from 'express';
 import compression from 'compression';
+import bodyParser from 'body-parser';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from '../build-configs/client';
+import webpackClientConfig from '../build/dev.client';
 import serveHtml from './middleware/serve-html';
-
-const PUBLIC_PATH = path.resolve(__dirname, '../public');
 
 const app = express();
 app.set('port', (process.env.PORT || 3000));
 app.disable('x-powered-by');
+app.use(express.static(path.resolve(__dirname, '../public'), { maxAge: 24 * 60 * 60 * 1000 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, {
+const webpackCompiler = webpack(webpackClientConfig);
+app.use(webpackDevMiddleware(webpackCompiler, {
   noInfo: true,
-  publicPath: '/',
+  publicPath: webpackClientConfig.output.publicPath,
 }));
-app.use(webpackHotMiddleware(compiler));
+app.use(webpackHotMiddleware(webpackCompiler));
 
 app.use(compression());
-app.use(express.static(PUBLIC_PATH/* , { maxAge: 24 * 60 * 60 * 1000 } */));
 
 app.get('/', serveHtml);
 app.get('/search/:query', serveHtml);

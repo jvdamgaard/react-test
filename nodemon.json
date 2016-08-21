@@ -1,8 +1,7 @@
 {
   "verbose": false,
   "watch": [
-    "server",
-    "build-configs"
+    "server"
   ],
   "exec": "babel-node server"
 }
