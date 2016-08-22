@@ -1,7 +1,7 @@
 {
   "verbose": false,
   "watch": [
-    "server"
+    "server/**"
   ],
   "exec": "babel-node server"
 }

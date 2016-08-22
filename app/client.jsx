@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import { render } from 'react-dom';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { Provider } from 'react-redux';
+import { AppContainer } from 'react-hot-loader';
 import createStore from './store';
-import Router from './components/Router';
+import Root from './components/Root';
 
 const initialState = window.INITIAL_STATE || {};
 const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : undefined;
@@ -12,9 +12,22 @@ const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : un
 const store = createStore(initialState, reduxDevTools);
 const history = syncHistoryWithStore(browserHistory, store);
 
-ReactDom.render(
-  <Provider store={store}>
-    <Router history={history} />
-  </Provider>,
+render(
+  <AppContainer>
+    <Root store={store} history={history} />
+  </AppContainer>,
   document.getElementById('app')
 );
+
+if (module.hot) {
+  module.hot.accept('./components/Root', () => {
+    const RootContainer = require('./components/Root').default;
+
+    render(
+      <AppContainer>
+        <RootContainer store={store} history={history} />
+      </AppContainer>,
+      document.getElementById('app')
+    );
+  });
+}

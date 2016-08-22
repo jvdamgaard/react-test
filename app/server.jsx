@@ -1,18 +1,21 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { createMemoryHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import Router from './components/Router';
+import { AppContainer } from 'react-hot-loader';
+import Root from './components/Root';
 
-export default function render(url, store) {
+function render(history, store) {
+  return renderToString(
+    <AppContainer >
+      <Root history={history} store={store} />
+    </AppContainer>
+  );
+}
+
+export default function init(url, store, callback) {
   const memoryHistory = createMemoryHistory(url);
   const history = syncHistoryWithStore(memoryHistory, store);
 
-  // Render the component to a string
-  return renderToString(
-    <Provider store={store}>
-      <Router history={history} />
-    </Provider>
-  );
+  callback(null, render(history, store, callback));
 }
