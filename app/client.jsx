@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
 import createStore from './store';
-import Root from './index';
+import Root from './index.jsx';
 
 const initialState = window.INITIAL_STATE || {};
 const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : undefined;

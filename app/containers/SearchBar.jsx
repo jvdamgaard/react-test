@@ -6,13 +6,13 @@ import SearchBar from '../components/SearchBar';
 
 function mapStateToProps(state, ownProps) {
   return {
-    searchTerm: ownProps.search,
+    albumSearch: ownProps.albumSearch,
   };
 }
 
 function mapDispatchToProps(dispatch/* , ownProps */) {
-  const debouncedGetAlbums = debounce((query) => {
-    dispatch(getAlbums(query));
+  const debouncedGetAlbums = debounce((albumSearch) => {
+    dispatch(getAlbums(albumSearch));
   }, 250);
 
   return {

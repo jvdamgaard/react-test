@@ -4,7 +4,7 @@ import SearchBar from '../../containers/SearchBar';
 export default function App({ params, children }) {
   return (
     <div>
-      <SearchBar query={params.query || ''} />
+      <SearchBar albumSearch={params.albumSearch || ''} />
       {children}
     </div>
   );

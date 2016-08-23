@@ -6,7 +6,7 @@ import ErrorPage from './components/ErrorPage';
 
 export default (
   <Route path="/" component={App}>
-    <Route path="/search/:query" component={Query} />
+    <Route path="/search/:albumSearch" component={Query} />
     <Route path="/*" component={ErrorPage} />
   </Route>
 );

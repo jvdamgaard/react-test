@@ -3,19 +3,15 @@ import { renderToString } from 'react-dom/server';
 import { createMemoryHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
-import Root from './index';
+import Root from './index.jsx';
 
-function render(history, store) {
+export default function init(url, store) {
+  const memoryHistory = createMemoryHistory(url);
+  const history = syncHistoryWithStore(memoryHistory, store);
+
   return renderToString(
     <AppContainer >
       <Root history={history} store={store} />
     </AppContainer>
   );
-}
-
-export default function init(url, store, callback) {
-  const memoryHistory = createMemoryHistory(url);
-  const history = syncHistoryWithStore(memoryHistory, store);
-
-  callback(null, render(history, store, callback));
 }
