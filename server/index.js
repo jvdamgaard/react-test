@@ -11,7 +11,7 @@ import serveHtml from './middleware/serve-html';
 const app = express();
 app.set('port', (process.env.PORT || 3000));
 app.disable('x-powered-by');
-app.use(express.static(path.resolve(__dirname, '../public'), { maxAge: 24 * 60 * 60 * 1000 }));
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -22,11 +22,8 @@ app.use(webpackDevMiddleware(webpackCompiler, {
 }));
 app.use(webpackHotMiddleware(webpackCompiler));
 
-app.use(compression());
-
-app.get('/', serveHtml);
-app.get('/search/:query', serveHtml);
-app.get('/*', serveHtml);
+app.use(express.static(path.resolve(__dirname, '../public'), { maxAge: 24 * 60 * 60 * 1000 }));
+app.get('*', serveHtml);
 
 console.log(`
 ---------------------------------

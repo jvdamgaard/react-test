@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { createMemoryHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
-import Root from './components/Root';
+import Root from './index';
 
 function render(history, store) {
   return renderToString(

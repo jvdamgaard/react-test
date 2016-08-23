@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { AppContainer } from 'react-hot-loader';
 import createStore from './store';
-import Root from './components/Root';
+import Root from './index';
 
 const initialState = window.INITIAL_STATE || {};
 const reduxDevTools = window.devToolsExtension ? window.devToolsExtension() : undefined;
@@ -20,8 +20,8 @@ render(
 );
 
 if (module.hot) {
-  module.hot.accept('./components/Root', () => {
-    const RootContainer = require('./components/Root').default;
+  module.hot.accept('./index', () => {
+    const RootContainer = require('./index').default;
 
     render(
       <AppContainer>
