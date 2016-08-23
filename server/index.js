@@ -26,6 +26,7 @@ app.use(compression());
 
 app.get('/', serveHtml);
 app.get('/search/:query', serveHtml);
+app.get('/*', serveHtml);
 
 console.log(`
 ---------------------------------

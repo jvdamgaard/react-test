@@ -1,18 +1,16 @@
 import React from 'react';
 import SearchBar from '../../containers/SearchBar';
-import AlbumList from '../../containers/AlbumList';
-import TrackList from '../../containers/TrackList';
 
-export default function App({ params }) {
+export default function App({ params, children }) {
   return (
     <div>
       <SearchBar query={params.query || ''} />
-      <AlbumList />
-      <TrackList />
+      {children}
     </div>
   );
 }
 
 App.propTypes = {
   params: React.PropTypes.object.isRequired,
+  children: React.PropTypes.object,
 };
