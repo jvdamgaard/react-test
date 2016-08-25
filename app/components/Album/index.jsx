@@ -8,7 +8,7 @@ export default function Album({ album, getTracks }) {
         src={album.images[1].url}
         alt={album.name}
         className={style.img}
-        onClick={() => getTracks(album.id)}
+        onClick={() => getTracks(album)}
       />
     </li>
   );

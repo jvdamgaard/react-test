@@ -2,7 +2,7 @@ import React from 'react';
 import Album from '../Album';
 import style from './style.css';
 
-export default function AlbumList({ albums, getTracks }) {
+export default function AlbumList({ albums, getTracks, children }) {
   const albumsList = albums.map((album) => (
     <Album
       key={album.id}
@@ -12,10 +12,13 @@ export default function AlbumList({ albums, getTracks }) {
   ));
 
   return (
-    <div className={`col-md-4 ${style.container}`}>
-      <ul className={style.list}>
-        {albumsList}
-      </ul>
+    <div>
+      <div className={`col-md-4 ${style.container}`}>
+        <ul className={style.list}>
+          {albumsList}
+        </ul>
+      </div>
+      {children}
     </div>
   );
 }
@@ -23,4 +26,5 @@ export default function AlbumList({ albums, getTracks }) {
 AlbumList.propTypes = {
   albums: React.PropTypes.array.isRequired,
   getTracks: React.PropTypes.func.isRequired,
+  children: React.PropTypes.object,
 };

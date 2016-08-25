@@ -4,9 +4,9 @@ import debounce from 'lodash/debounce';
 import { getAlbums } from '../actions/albums';
 import SearchBar from '../components/SearchBar';
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, { albumSearch }) {
   return {
-    albumSearch: ownProps.albumSearch,
+    albumSearch,
   };
 }
 
@@ -21,7 +21,7 @@ function mapDispatchToProps(dispatch/* , ownProps */) {
         browserHistory.push('/');
         return;
       }
-      browserHistory.push(`/search/${event.target.value}`);
+      browserHistory.push(`/search/${event.target.value}/`);
       debouncedGetAlbums(event.target.value);
     },
   };

@@ -1,4 +1,5 @@
 import * as musicApi from '../../api/musicApi';
+import { setSearch } from './search';
 import { SET_ALBUMS } from './types';
 
 export function setAlbums(albums) {
@@ -10,6 +11,7 @@ export function setAlbums(albums) {
 
 export function getAlbums(query) {
   return (dispatch) => {
+    dispatch(setSearch(query));
     if (!query) {
       return Promise.resolve(
         dispatch(

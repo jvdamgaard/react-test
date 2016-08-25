@@ -1,16 +1,20 @@
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { getTracks } from '../actions/tracks';
 import AlbumList from '../components/AlbumList';
 
-function mapStateToProps(state/* , ownProps */) {
+function mapStateToProps({ albums }/* , ownProps */) {
   return {
-    albums: state.albums,
+    albums,
   };
 }
 
-function mapDispatchToProps(dispatch/* , ownProps */) {
+function mapDispatchToProps(dispatch, { params }) {
   return {
-    getTracks: (albumId) => dispatch(getTracks(albumId)),
+    getTracks: ({ id }) => {
+      browserHistory.push(`/search/${params.albumSearch}/${id}/`);
+      return dispatch(getTracks(id));
+    },
   };
 }
 
